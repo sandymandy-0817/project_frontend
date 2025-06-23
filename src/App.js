@@ -23,9 +23,8 @@ function DetailModalWrapper() {
   };
 
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" onClick={handleClose}>
       <div className="modal-content">
-        <button onClick={handleClose}>닫기</button>
         <Detail />
       </div>
     </div>
