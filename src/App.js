@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Routes, Route, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import Header from './component/Header';
 import Main from './component/Main';
@@ -16,14 +16,9 @@ import Footer from './component/Footer';
 
 function DetailModalWrapper() {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleClose = () => {
-    navigate(location.state?.from || '/', { replace: true });
-  };
 
   return (
-    <div className="modal-overlay" onClick={handleClose}>
+    <div className="modal-overlay">
       <div className="modal-content">
         <Detail />
       </div>
