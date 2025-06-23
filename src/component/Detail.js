@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import '../css/Detail.css';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -12,6 +12,7 @@ function Detail() {
   const { p_id } = useParams();
   const { userId, isLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   /* 좋아요 */
   const [likedPosts, setLikedPosts] = useState([]);
@@ -111,6 +112,10 @@ function Detail() {
     navigate('/login');
   };
 
+  const handleClose = () => {
+    navigate(location.state?.from || '/', { replace: true });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -140,10 +145,10 @@ function Detail() {
 
   return (
     <>
-      <div className="bg_wrap" onClick={() => navigate('/')} />
+      <div className="bg_wrap" onClick={handleClose} />
       <div className="detail_con_wrap">
         <div className="detail_nav_wrap">
-          <div className="detail_close_btn_wrap" onClick={() => navigate('/')}>
+          <div className="detail_close_btn_wrap" onClick={handleClose}>
             <FontAwesomeIcon icon={faXmark} className="detail_close_btn" />
           </div>
           <div className="detail_nav">
