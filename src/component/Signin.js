@@ -3,8 +3,6 @@ import '../css/form.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL;
-
 function Signin(props) {
 
   const navigate = useNavigate();
@@ -32,7 +30,7 @@ function Signin(props) {
       return;
     }
     try{
-      const res = await axios.post(`${API_BASE}/signin`,{
+      const res = await axios.post('http://localhost:9070/signin',{
         email : form.email,
         password : form.password,
         name : form.name,
@@ -55,7 +53,7 @@ function Signin(props) {
     }
   };
   return (
-    <section className='form'>
+    <section className='form sign'>
       <h2 className='form_title'>회원가입</h2>
       <p className='explain'>디자인은 공유될 때 비로소 완성됩니다. 지금 가입하고 당신의 이야기를 들려주세요</p>
       <form className='signin' onSubmit={handleSubmit}>

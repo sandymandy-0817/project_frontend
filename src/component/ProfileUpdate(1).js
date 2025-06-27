@@ -44,7 +44,7 @@ function ProfileUpdate() {
                 introduce: users.introduce
             });
             alert('프로필이 성공적으로 수정되었습니다.');
-            navigate(-1); // 수정 후 프로필 페이지로 이동
+            navigate(`/profile/${id}`); // 수정 후 프로필 페이지로 이동
             } catch (err) {
             console.error('axios 에러:', err.response || err.message);
             setError('프로필 수정 중 오류가 발생했습니다.');

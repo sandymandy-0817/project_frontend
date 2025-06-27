@@ -5,58 +5,45 @@ import LazyImage from './LazyImage';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../css/Main.css';
-import { useAuth } from '../contexts/AuthContext';
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL;
-
-function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
-  const { userId, isLoggedIn } = useAuth();
-
+function Main(props) {
+  const { selectedCategory, setSelectedCategory, userId, search, setSearch } = props;
   /* 좋아요 */
   const [likedPosts, setLikedPosts] = useState([]);
 
-  useEffect(() => {
-    if (userId) {
-      axios.get(`${API_BASE}/liked-posts/${userId}`)
-        .then(res => setLikedPosts(res.data.map(p => p.id)))
-        .catch(err => console.error("좋아요 게시물 가져오기 오류:", err));
-    } else {
-      setLikedPosts([]);
+  useEffect(()=>{
+    if (userId){
+      axios.get(`http://localhost:9070/liked-posts/${userId}`)
+        .then(res=> setLikedPosts(res.data.map(p=>p.id)));
     }
-  }, [userId, isLoggedIn]);
+  }, [userId]);
 
   const toggleLike = async (e, postId) => {
     e.preventDefault();
-    e.stopPropagation();
-
-    if (!isLoggedIn) {
-      alert("로그인 후 이용 가능합니다.");
-      return;
-    }
-    
+    if(!userId) return alert("로그인 후 이용 가능합니다.");
     const liked = likedPosts.includes(postId);
-    try {
-      if (liked) {
-        await axios.delete(`${API_BASE}/like`, { data: { user_id: userId, post_id: postId } });
+    try{
+      if(liked){
+        await axios.delete(`http://localhost:9070/like`,{data:{user_id:userId, post_id:postId}});
         setLikedPosts(prev => prev.filter(id => id !== postId));
-      } else {
-        await axios.post(`${API_BASE}/like`, { user_id: userId, post_id: postId });
-        setLikedPosts(prev => [...prev, postId]);
+      }else{
+        await axios.post(`http://localhost:9070/like`, {user_id:userId, post_id:postId});
+        setLikedPosts(prev => [...prev,postId]);
       }
-    } catch (err) {
+    }catch(err){
       console.error("좋아요 처리 오류", err);
-      alert("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
-
-  const location = useLocation();
+  
+  const location = useLocation(); 
 
   const [data, setData] = useState([]);
 
   const categories = ['All', 'Photo', 'Portfolio', 'Graphic', 'Illust', 'Typography'];
 
+  /* 상세보기 모바일에서 메인 숨기기 */
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
   useEffect(() => {
@@ -71,13 +58,13 @@ function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
   const shouldHide = isDetailPage && isMobile;
 
   const loadData = useCallback(() => {
-    axios.get(`${API_BASE}/posts`)
+    axios.get('http://localhost:9070/posts')
       .then(res => {
         setData(res.data);
       })
       .catch(err => console.log(err));
   }, []);
-
+  
   useEffect(() => {
     loadData();
   }, [loadData]);
@@ -87,27 +74,27 @@ function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
     1024: 4,
     768: 3,
     600: 2,
-    400: 2,
+    400: 1,
   };
 
   const leftImages = [
-    `${process.env.PUBLIC_URL}/images/samples/sample01.jpg`,
-    `${process.env.PUBLIC_URL}/images/samples/sample18.jpg`,
-    `${process.env.PUBLIC_URL}/images/samples/sample34.jpg`
+    '/images/samples/sample01.jpg',
+    '/images/samples/sample18.jpg',
+    '/images/samples/sample34.jpg'
   ];
 
   const rightImages = [
-    `${process.env.PUBLIC_URL}/images/samples/sample33.jpg`,
-    `${process.env.PUBLIC_URL}/images/samples/works7.png`,
-    `${process.env.PUBLIC_URL}/images/samples/works3.png`,
-    `${process.env.PUBLIC_URL}/images/samples/sample05.jpg`
+    '/images/samples/sample33.jpg',
+    '/images/samples/works7.png',
+    '/images/samples/works3.png',
+    '/images/samples/sample05.jpg'
   ];
 
   const [leftVisibles, setLeftVisibles] = useState([]);
   const [rightVisibles, setRightVisibles] = useState([]);
   const [sAreaVisibles, setSAreaVisibles] = useState([]);
   const [h2Visible, setH2Visible] = useState(false);
-
+  
 
   useEffect(() => {
     leftImages.forEach((_, index) => {
@@ -125,54 +112,54 @@ function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
     });
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
+  useEffect(()=> {
+    setTimeout(()=> {
       setH2Visible(true);
-      [0, 1].forEach((_, index) => {
-        setTimeout(() => {
+      [0,1].forEach((_,index)=> {
+        setTimeout(()=> {
           setSAreaVisibles(prev => [...prev, index]);
-        }, (index + 1) * 400);
-      });
+        }, (index+1) * 400);
+        });
     }, 200);
   }, []);
 
   const cateOnClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category); 
   }
 
   const filteredData = data.filter(item => {
     const matchCategory =
       selectedCategory === 'All' || item.category === selectedCategory;
-
+  
     const matchSearch =
       item.title.toLowerCase().includes(search.toLowerCase()) ||
       item.explain?.toLowerCase().includes(search.toLowerCase());
-
+  
     return matchCategory && matchSearch;
   });
 
   return (
     <main>
-      {!shouldHide && (
-        <div className='m_area'>
-          <h2 className={h2Visible ? 'visible' : ''}>디&#x2D0;공(共)</h2>
-          <div className='s_area'>
-            <p className={sAreaVisibles.includes(0) ? 'visible' : ''}><span>디자인</span>으로 말하고,</p>
-            <p className={sAreaVisibles.includes(1) ? 'visible' : ''}><span>공유</span>로 이어지다.</p>
+      {!shouldHide &&(
+      <div className='m_area'>
+        <h2 className={h2Visible ? 'visible':''}>디&#x2D0;공(共)</h2>
+        <div className='s_area'>
+          <p className={sAreaVisibles.includes(0) ? 'visible':''}><span>디자인</span>으로 말하고,</p>
+          <p className={sAreaVisibles.includes(1) ? 'visible':''}><span>공유</span>로 이어지다.</p>
+        </div>
+        <div className='wrapper'>
+          <div className='l_img'>
+            {leftImages.map((src, index) => (
+              <img  key={index} src={src} alt={`Left ${index}`} className={`images ${leftVisibles.includes(index) ? 'visible':''}`}/>
+            ))}
           </div>
-          <div className='wrapper'>
-            <div className='l_img'>
-              {leftImages.map((src, index) => (
-                <img key={index} src={src} alt={`Left ${index}`} className={`images ${leftVisibles.includes(index) ? 'visible' : ''}`} />
-              ))}
-            </div>
-            <div className='r_img'>
-              {rightImages.map((src, index) => (
-                <img key={index} src={src} alt={`Right ${index}`} className={`images ${rightVisibles.includes(index) ? 'visible' : ''}`} />
-              ))}
-            </div>
+          <div className='r_img'>
+            {rightImages.map((src, index) => (
+              <img  key={index} src={src} alt={`Right ${index}`} className={`images ${rightVisibles.includes(index) ? 'visible':''}`}/>
+            ))}
           </div>
         </div>
+      </div>
       )}
       <div className='c_area'>
         <div className='c_wrap'>
@@ -180,9 +167,10 @@ function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
             <div
               key={category}
               className={`category-item ${selectedCategory === category ? 'c_act cate' : 'cate'}`}
+
               onClick={() => cateOnClick(category)}
             >
-              {category === 'All' ? (<></>) : (<img src={`${process.env.PUBLIC_URL}/images/icon_${category}.svg`} alt={category} />)}
+              {category === 'All' ? (<></>):(<img src={`${process.env.PUBLIC_URL}/images/icon_${category}.svg`} alt={category} />)}
               <p>{category}</p>
             </div>
           ))}
@@ -196,18 +184,17 @@ function Main({ selectedCategory, setSelectedCategory, search, setSearch }) {
         {filteredData.map((item, index) => (
           <Link to={`/detail/${item.id}`} key={index} state={{ backgroundLocation: location }}>
             <div className='gallery'>
-              <LazyImage src={`${API_BASE}/uploads/${item.file_name}`} alt={`${item.title}`}></LazyImage>
+              <LazyImage src={`http://localhost:9070/uploads/${item.file_name}`} alt={`${item.title}`}></LazyImage>
               <div className='g_cover'>
                 <button onClick={(e) => toggleLike(e, item.id)}>
-                  <FontAwesomeIcon icon={faHeart} style={{ color: likedPosts.includes(item.id) ? 'red' : '#fff' }} />
+                  <FontAwesomeIcon icon={faHeart} style={{color: likedPosts.includes(item.id) ? 'red' : '#fff'}} />
                 </button>
-                <img src={`${API_BASE}/uploads/${item.img}`} alt="profile" /><p>{item.title}</p>
+                <img src={`http://localhost:9070/uploads/${item.img}`} alt="profile" /><p>{item.title}</p>
               </div>
             </div>
           </Link>
         ))}
       </Masonry>
-      <Outlet />
     </main>
   );
 }

@@ -1,9 +1,8 @@
-import React, {useEffect, useState } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import Info from './Info';
 import axios from 'axios';
 import '../css/profile.css';
-
-const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function UserInfo(props) {
     const { id:userId } = useParams();
@@ -25,10 +24,13 @@ function UserInfo(props) {
         const randomIndex = Math.floor(Math.random() * backgroundImages.length);
         setBackground(backgroundImages[randomIndex]);
     },[]);
-    
+
+    /* 좋아요 */
+    const [likedPosts, setLikedPosts] = useState([]);
+
     useEffect(() => {
         if (userId) {
-        axios.get(`${API_BASE}/user-posts?author_id=${userId}`)
+        axios.get(`http://localhost:9070/user-posts?author_id=${userId}`)
             .then(res => {
                 setPosts(res.data);
                 // console.log('API 응답 데이터:', res.data);
@@ -41,9 +43,9 @@ function UserInfo(props) {
         return (
         <div className="post-card">
             <Link to={`/detail/${post.id}`} state={{ backgroundLocation: location }}>
-                <img src={`${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
+                <img src={`http://localhost:9070/uploads/${post.file_name}`} alt={post.title} />
             <div className='g_cover'>
-            <img src={`${API_BASE}/uploads/${post.img}`} alt="profile" />
+            <img src={`http://localhost:9070/uploads/${post.img}`} alt="profile" />
             <p>{post.title}</p>
             </div>
             </Link>
@@ -62,13 +64,12 @@ function UserInfo(props) {
                 {posts.length > 0 && (
                 <div className='user_profile'>
                     <div className='user_pic'> 
-                    <img src={`${API_BASE}/uploads/${posts[0].img}`} alt="프로필 이미지" />
+                    <img src={`http://localhost:9070/uploads/${posts[0].img}`} alt="프로필 이미지" />
                     </div>
                     <div className='user_info'>
-                        {console.log(posts)}
                         <p className='user_n'>{posts[0].nickname}</p>
                         <p className='user_e'>{posts[0].email}</p>
-                        <p className='user_introT'>자기소개</p>
+                        <p className='user_intro'>자기소개</p>
                         <p className='user_introP'>{posts[0].introduce}</p>
                     </div>
                 </div>

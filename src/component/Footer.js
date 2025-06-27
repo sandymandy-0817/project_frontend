@@ -34,10 +34,10 @@ function Footer(props) {
           /></Link></h2>
       <address>Copyright&copy;2025 DIGONG All Rights Reserved.</address>
       <ul>
-        <li><FontAwesomeIcon icon={faInstagram} /></li>
-        <li><FontAwesomeIcon icon={faSquareFacebook} /></li>
-        <li><FontAwesomeIcon icon={faSquareYoutube} /></li>
-        <li><FontAwesomeIcon icon={faSquareXTwitter} /></li>
+        <li><Link to='/#'><FontAwesomeIcon icon={faInstagram} /></Link></li>
+        <li><Link to='/#'><FontAwesomeIcon icon={faSquareFacebook} /></Link></li>
+        <li><Link to='/#'><FontAwesomeIcon icon={faSquareYoutube} /></Link></li>
+        <li><Link to='/#'><FontAwesomeIcon icon={faSquareXTwitter} /></Link></li>
       </ul>
     </footer>
   );

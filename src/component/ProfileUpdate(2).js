@@ -38,16 +38,16 @@ function ProfileUpdate() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:9070/profileupdate/${id}`, {
-                name: users.name,
-                nickname: users.nickname,
-                introduce: users.introduce
-            });
-            alert('프로필이 성공적으로 수정되었습니다.');
-            navigate(-1); // 수정 후 프로필 페이지로 이동
-            } catch (err) {
-            console.error('axios 에러:', err.response || err.message);
-            setError('프로필 수정 중 오류가 발생했습니다.');
+        await axios.put(`http://localhost:9070/profile/${id}`, {
+            name: users.name,
+            nickname: users.nickname,
+            introduce: users.introduce
+        });
+        alert('프로필이 성공적으로 수정되었습니다.');
+        navigate(`/profile/${id}`); // 수정 후 프로필 페이지로 이동
+        } catch (err) {
+        console.error('axios 에러:', err.response || err.message);
+        setError('프로필 수정 중 오류가 발생했습니다.');
         }
     };
 
@@ -57,28 +57,28 @@ function ProfileUpdate() {
         <p className='explain'>당신을 더 잘 표현할 수 있도록 프로필을 업데이트해보세요.</p>
         <form className='user_update' onSubmit={handleSubmit}>
             <div className='name_box'>
-                <p className='name'>
-                    <label htmlFor="name">이름</label>
-                    <input
-                    id='name'
-                    name='name'
-                    placeholder='이름을 입력하세요'
-                    required
-                    onChange={handleChange}
-                    value={users.name}
-                    />
-                </p>
-                <p className='nickname'>
-                    <label htmlFor="nickname">닉네임</label>
-                    <input
-                    id='nickname'
-                    name='nickname'
-                    placeholder='닉네임을 입력하세요'
-                    required
-                    onChange={handleChange}
-                    value={users.nickname}
-                    />
-                </p>
+            <p className='name'>
+                <label htmlFor="name">이름</label>
+                <input
+                id='name'
+                name='name'
+                placeholder='이름을 입력하세요'
+                required
+                onChange={handleChange}
+                value={users.name}
+                />
+            </p>
+            <p className='nickname'>
+                <label htmlFor="nickname">닉네임</label>
+                <input
+                id='nickname'
+                name='nickname'
+                placeholder='닉네임을 입력하세요'
+                required
+                onChange={handleChange}
+                value={users.nickname}
+                />
+            </p>
             </div>
             <p className='email'>
             <label htmlFor="email">이메일</label>

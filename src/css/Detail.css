@@ -245,6 +245,7 @@
   }
   .detail_con_wrap{
     width: 100%;
+    z-index: 0;
     transform: none;
     position: absolute;
     left: 0;
@@ -267,7 +268,7 @@
     background: linear-gradient(360deg,rgba(186, 186, 186, 1) 0%, rgba(255, 255, 255, 0) 100%);
   }
   .detail_nav_bg .detail_nav_icon{
-    background-color: #fff;
+    background-color: none;
     padding:15px; 
     border-radius: 50%;
     color: var(--s_color_bk);

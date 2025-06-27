@@ -3,6 +3,7 @@
 .form {width: 1440px; margin: 0 auto; margin-top: 200px;}
 .explain {text-align: center;  margin-bottom: 40px;}
 
+.log, .sign {margin-top: 28% !important;}
 .login {width: 1100px; margin: 0 auto;}
 .login > p {width: 600px; margin: 0 auto; text-align: center; margin-bottom: 30px;}
 .email > label, .password > label, .name > label, .nickname > label, .user_intro > label {display: inline-block; width: 70px; text-align: right; margin-right: 15px;}
@@ -60,4 +61,11 @@ button[type=submit] {background-color: var(--m_color); color: var(--s_color_w); 
     .simple_login > ul {width: 60%;}
     .simple_login > ul > li > img {width: 70%; justify-content: space-between;}
     .explain {width: 80%; margin: 0 auto; padding-bottom: 30px;}
+    .log, .sign {
+        label {display: none;}
+        .agree_box {display: flex;
+            label {display: block; margin-top: 17px; margin-left: 5px;}
+        }
+    }
+    #agree {width: 5% !important;}
 }

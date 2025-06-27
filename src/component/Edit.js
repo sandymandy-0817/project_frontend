@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL;
-
 function Edit() {
     const { id } = useParams();
-    // console.log("Edit 페이지에서 받은 id:", id);
+    console.log("Edit 페이지에서 받은 id:", id);
 
     const [post, setPost] = useState({
         title: '',
@@ -16,26 +14,29 @@ function Edit() {
     });
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     // 기존 게시물 데이터 불러오기
     useEffect(() => {
-    axios.get(`${API_BASE}/profile/${id}`)
+    axios.get(`http://localhost:9070/profile/${id}`)
         .then(res => {
         setPost(res.data);
+        setLoading(false);
 
         // 기존 이미지 미리보기 등록
         if (res.data.file_name) {
             setPreviews([
             {
                 name: res.data.file_name,
-                url: `${API_BASE}/uploads/${res.data.file_name}`,
+                url: `http://localhost:9070/uploads/${res.data.file_name}`,
             },
             ]);
         }
         })
         .catch(err => {
         console.error(err);
+        setLoading(false);
         });
     }, [id]);
 
@@ -74,7 +75,7 @@ function Edit() {
             });
         }
 
-        axios.post(`${API_BASE}/update-post/${id}`, formData, {
+        axios.post(`http://localhost:9070/update-post/${id}`, formData, {
             headers: {
             'Content-Type': 'multipart/form-data'
             }

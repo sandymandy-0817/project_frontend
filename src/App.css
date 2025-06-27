@@ -38,7 +38,6 @@ header .h_wrap{
   position: relative;
 }
 
-.ml_wrap {display: flex; margin-left:20px; gap: 10px;}
 .toggle {display: none;}
 
 header .h_wrap h1 img{
@@ -69,7 +68,6 @@ header .h_wrap .h_search input {
   text-indent: 10px;
   font-weight: bold;
 }
-.fa-magnifying-glass {color: var(--m_color)}
 header .h_wrap .h_search input::-moz-placeholder {
   color: var(--s_color_bk);
 }
@@ -100,8 +98,10 @@ header .h_wrap .h_search button {
   width: 30px; height: 30px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 15px;
+  margin-right: 10px;
+  float: left;
 }
+.s_icon {color: var(--m_color);}
 .h_profile{
   position: absolute;
   text-align: center;
@@ -140,7 +140,7 @@ footer li{
   margin-left: 15px;
   font-size: 20px;
 }
-footer > button {position: fixed; right: 15%; bottom: 10%; background-color: var(--m_color); border: none; padding: 10px 13px; border-radius: 50%; z-index: 1002;}
+footer > button {position: fixed; right: 12%; bottom: 16%; background-color: var(--m_color); border: none; padding: 10px 13px; border-radius: 50%; z-index: 1002;}
 footer > button > .svg-inline--fa {color: #fff; font-size: 24px;}
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -152,12 +152,12 @@ footer > button > .svg-inline--fa {color: #fff; font-size: 24px;}
 
 @media screen and (max-width: 767px) {
   header {max-width: 767px; width: 100%;}
-  .h_wrap {margin:15px auto !important;}
-  h1 {margin-left: 0; display: flex;}
-  h1 > a > img {width: 30px !important;}
+  .h_wrap {width: 100%;}
+  h1 {margin-left: 0; margin-top: -1%; display: flex; align-items: center; transform: translateX(5%);}
+  h1 > a > img {width: 50% !important;}
   footer {max-width: 1024px; width: 100%; justify-content: space-around;}
   .h_search {display: none !important;}
-  .toggle {width: 30px; min-width: 30px; height: 22px; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 1001; top: 7px;}
+  .toggle {width: 30px; height: 22px; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 1001; left: 20px;}
   .toggle span { display: block; height: 3px; background: #333; border-radius: 2px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease; transform-origin: center;}
   /* 기본 위치 (햄버거) */
   .t1 {width: 100%;} .t2 {width: 70%;} .t3 {width: 50%;}
@@ -167,17 +167,16 @@ footer > button > .svg-inline--fa {color: #fff; font-size: 24px;}
   .toggle.open .t3 { transform: rotate(-45deg); width: 100%; position:absolute; right:0px;bottom:13px;}
   .main_header {display: none;}
   .mobile {display: flex; margin-right: 10px;}
-  /* .mobile > li {margin-left: 40px;} */
+  .mobile > li {margin-left: 40px;}
   .svg-inline--fa {font-size: 1.5rem;}
 
-  .m_search {position: relative; width: 50vw; max-width: 300px; height: 48px; display: block; margin-left: auto; margin-right: auto; top: 0px;} 
+  .m_search {position: relative; width: 90vw; max-width: 300px; height: 48px; display: block; margin-left: auto; margin-right: auto; top: -3px;} 
   .m_search > input {
     position: absolute;
     right: 0;
-    top: 4px;
+    top: 1px;
     height: 48px;
-    width: 0;
-    opacity: 0;
+    width: 85%;
     border: 3px solid var(--m_color);
     background: var(--s_color_w);
     border-radius: 48px;
@@ -186,23 +185,13 @@ footer > button > .svg-inline--fa {color: #fff; font-size: 24px;}
     padding-right: 48px;
     font-size: 1.1rem;
     z-index: 1;
-    transition:
-      width 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
-      opacity 0.3s,
-      padding-left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     overflow: hidden;
     display: block;}
-  .m_search input.active {
-    width: 100%;
-    opacity: 1;
-    padding-left: 20px;
-  }
   .s_icon {
     position: absolute;
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #4169E1;
     font-size: 1.7rem;
     cursor: pointer;
     z-index: 2;
@@ -215,12 +204,18 @@ footer > button > .svg-inline--fa {color: #fff; font-size: 24px;}
   nav > div { background-color: #fff; width: 70%; padding: 20px 30px;}
   nav > div > button {background-color: #fff; border: none;}
   nav > div > ul {height: 30vh; margin-top: 50px;}
-  nav > div > ul > li {font-weight: bold; font-size: 18px; line-height: 40px;}
+  nav > div > ul > li {font-weight: bold; font-size: 18px; line-height: 40px; cursor: pointer;}
 
   footer {padding-bottom: 10px;}
   footer > h2 > a  {margin-left: 20px;}
   footer > h2 > a > img {width: 35%;}
   footer > address {font-size: 12px;}
   footer > ul {width: 32%;}
-  footer > button {right: 1%; bottom: 5%;}
+  footer > button {right: 1%; bottom: 8%;}
+}
+
+@media screen and (max-width: 500px) {
+  h1 > a > img {width: 130% !important;}
+  h1 {transform: translateX(150%)}
+  .toggle {width: 70px; height: 22px; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 1001; left: 20px;}
 }
