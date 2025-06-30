@@ -13,6 +13,8 @@ import Detail from './component/Detail';
 import Edit from './component/Edit';
 import Footer from './component/Footer';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function App() {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
