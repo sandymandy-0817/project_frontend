@@ -64,10 +64,10 @@ const handleShare = async () => {
     const liked = likedPosts.includes(Number(postId));
     try{
       if (liked){
-        await axios.delete('http://localhost:9070/like',{data: {user_id: userId, post_id: postId}});
+        await axios.delete(`${API_BASE}/like`,{data: {user_id: userId, post_id: postId}});
         setLikedPosts(prev => prev.filter(id => id !== Number(postId)));
       }else{
-        await axios.post('http://localhost:9070/like', {user_id: userId, post_id: postId});
+        await axios.post(`${API_BASE}/like`, {user_id: userId, post_id: postId});
         setLikedPosts(prev => [...prev, Number(postId)]);
       }
     }catch(err){
@@ -115,7 +115,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
     })
     .catch(err => console.log('조회 오류 : ', err));
 
-    axios.get(`http://localhost:9070/comment/${p_id}`)
+    axios.get(`${API_BASE}/comment/${p_id}`)
     .then(res=>{
       setComment(res.data);
     })
@@ -129,7 +129,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{ // 데이터 전송 성공 시
-      await axios.post('http://localhost:9070/comment', formData);
+      await axios.post(`${API_BASE}/comment`, formData);
       alert('코멘트가 등록되었습니다.');
       window.location.href = '/detail/'+p_id;
     }
