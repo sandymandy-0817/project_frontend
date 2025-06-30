@@ -19,7 +19,7 @@ function Edit() {
 
     // 기존 게시물 데이터 불러오기
     useEffect(() => {
-    axios.get(`http://localhost:9070/profile/${id}`)
+    axios.get(`${API_BASE}/profile/${id}`)
         .then(res => {
         setPost(res.data);
         setLoading(false);
@@ -75,7 +75,7 @@ function Edit() {
             });
         }
 
-        axios.post(`http://localhost:9070/update-post/${id}`, formData, {
+        axios.post(`${API_BASE}/update-post/${id}`, formData, {
             headers: {
             'Content-Type': 'multipart/form-data'
             }
