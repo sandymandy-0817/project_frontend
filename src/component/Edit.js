@@ -29,7 +29,7 @@ function Edit() {
             setPreviews([
             {
                 name: res.data.file_name,
-                url: `http://localhost:9070/uploads/${res.data.file_name}`,
+                url: `${API_BASE}/uploads/${res.data.file_name}`,
             },
             ]);
         }
