@@ -20,7 +20,7 @@ function ProfileUpdate() {
 
     useEffect(() => {
     if (id) {
-        axios.get(`http://localhost:9070/profileupdate/${id}`)
+        axios.get(`${API_BASE}/profileupdate/${id}`)
             .then(res => setUsers(res.data))
             .catch(err => {
                 console.error(err);
@@ -38,7 +38,7 @@ function ProfileUpdate() {
         e.preventDefault();
 
         try {
-            await axios.put(`http://localhost:9070/profileupdate/${id}`, {
+            await axios.put(`${API_BASE}/profileupdate/${id}`, {
                 name: users.name,
                 nickname: users.nickname,
                 introduce: users.introduce
