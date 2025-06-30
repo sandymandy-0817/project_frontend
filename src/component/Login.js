@@ -4,6 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import '../css/form.css';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function Login(props) {
   const [formData, setFormData] = useState({email:'', password:''});
 

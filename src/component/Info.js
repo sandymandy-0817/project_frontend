@@ -1,6 +1,8 @@
 import React , {useState, useRef} from 'react';
 import axios from 'axios';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function User_Info(props) {
     const [profileImage, setProfileImage] = useState(()=>props.userImg);
     const fileInputRef = useRef(null);
@@ -38,7 +40,7 @@ function User_Info(props) {
     return (
         <div className='user_profile'>
           <div className='user_pic'> 
-            <img src={`${API_BASE}/uploads/${props.userImg}`}/>
+            <img src={`http://localhost:9070/uploads/${props.userImg}`}/>
             <button onClick={handleEditClick} >
             🔧
             </button>

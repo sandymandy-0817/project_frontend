@@ -5,6 +5,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faShareNodes, faHeart, faComment, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function Detail(props) {
   const {p_id} = useParams();
 
@@ -127,7 +129,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{ // 데이터 전송 성공 시
-      await axios.post('${API_BASE}/comment', formData);
+      await axios.post('http://localhost:9070/comment', formData);
       alert('코멘트가 등록되었습니다.');
       window.location.href = '/detail/'+p_id;
     }

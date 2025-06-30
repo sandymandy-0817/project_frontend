@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function ProfileUpdate() {
     const { id } = useParams();
     console.log("Profile페이지에서 받은 id:", id);

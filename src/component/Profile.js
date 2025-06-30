@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import '../css/profile.css';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function Profile(props) {
     const { id:userId } = useParams();
     const location = useLocation();
@@ -39,7 +41,7 @@ function Profile(props) {
 
     useEffect(()=> {
         if (tabmenu === '좋아요' && props.userId){
-            axios.get(`${API_BASE}/liked-posts/${props.userId}`)
+            axios.get(`/liked-posts/${props.userId}`)
                 .then(res => setLikedPosts(res.data));
         }
     }, [tabmenu, props.userId]);
