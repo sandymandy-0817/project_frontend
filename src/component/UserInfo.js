@@ -4,6 +4,8 @@ import Info from './Info';
 import axios from 'axios';
 import '../css/profile.css';
 
+const API_BASE = process.env.React_APP_API_BASE_URL;
+
 function UserInfo(props) {
     const { id:userId } = useParams();
     const location = useLocation();
