@@ -163,7 +163,7 @@ function Profile(props) {
                                     {likedPosts.map(post => (
                                     <div className="post-card" key={post.id}>
                                         <Link to={`/detail/${post.id}`} state={{ backgroundLocation: location }}>
-                                        <img src${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
+                                        <img src={`${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
                                         <div className='g_cover'>
                                             <img src={`${API_BASE}/uploads/${post.img}`} alt="profile" />
                                             <p>{post.title}</p>

@@ -30,7 +30,7 @@ function UserInfo(props) {
 
     useEffect(() => {
         if (userId) {
-        axios.get(`http://localhost:9070/user-posts?author_id=${userId}`)
+        axios.get(`${API_BASE}/user-posts?author_id=${userId}`)
             .then(res => {
                 setPosts(res.data);
                 // console.log('API 응답 데이터:', res.data);
@@ -43,9 +43,9 @@ function UserInfo(props) {
         return (
         <div className="post-card">
             <Link to={`/detail/${post.id}`} state={{ backgroundLocation: location }}>
-                <img src={`http://localhost:9070/uploads/${post.file_name}`} alt={post.title} />
+                <img src={`${API_BASE}/uploads/${post.file_name}`} alt={post.title} />
             <div className='g_cover'>
-            <img src={`http://localhost:9070/uploads/${post.img}`} alt="profile" />
+            <img src={`${API_BASE}/uploads/${post.img}`} alt="profile" />
             <p>{post.title}</p>
             </div>
             </Link>
@@ -64,7 +64,7 @@ function UserInfo(props) {
                 {posts.length > 0 && (
                 <div className='user_profile'>
                     <div className='user_pic'> 
-                    <img src={`http://localhost:9070/uploads/${posts[0].img}`} alt="프로필 이미지" />
+                    <img src={`${API_BASE}/uploads/${posts[0].img}`} alt="프로필 이미지" />
                     </div>
                     <div className='user_info'>
                         <p className='user_n'>{posts[0].nickname}</p>

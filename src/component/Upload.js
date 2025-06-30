@@ -46,7 +46,7 @@ function Upload(props) {
       data.append('files', file);
     });
 
-    fetch('http://localhost:9070/upload', {
+    fetch(`${API_BASE}/upload`, {
       method: 'POST',
       body: data,
     })
