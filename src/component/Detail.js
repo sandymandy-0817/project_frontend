@@ -47,7 +47,7 @@ const handleShare = async () => {
 
   useEffect(()=>{
     if(userId){
-      axios.get(`http://localhost:9070/liked-posts/${userId}`)
+      axios.get(`${API_BASE}/liked-posts/${userId}`)
         .then(res=>{
           const likedIds = res.data.map(post => post.id);
           setLikedPosts(likedIds);
@@ -127,7 +127,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{ // 데이터 전송 성공 시
-      await axios.post('http://localhost:9070/comment', formData);
+      await axios.post('${API_BASE}/comment', formData);
       alert('코멘트가 등록되었습니다.');
       window.location.href = '/detail/'+p_id;
     }
