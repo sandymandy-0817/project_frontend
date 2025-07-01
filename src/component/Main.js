@@ -172,7 +172,7 @@ function Main(props) {
 
               onClick={() => cateOnClick(category)}
             >
-              {category === 'All' ? (<></>):(<img src={`${process.env.PUBLIC_URL}/images/icon_${String(category).toLowerCase()}.svg`} alt={category} />)}
+              {category === 'All' ? (<></>):(<img src={`${process.env.PUBLIC_URL}/images/icon_${String(category)}.svg`} alt={category} />)}
               <p>{category}</p>
             </div>
           ))}
