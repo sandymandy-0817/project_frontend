@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import '../css/form.css';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Login(props) {
   const [formData, setFormData] = useState({email:'', password:''});
@@ -33,7 +33,7 @@ function Login(props) {
   }
 
   return (
-    <section className='form log'>
+    <section className='form'>
       <h2 className='form_title'>로그인</h2>
       <p className='explain'>지금 로그인 하고 더 다양한 디자인들을 둘러보고 공유하세요!</p>
       <form className='login' onSubmit={handleSubmit}>
@@ -46,8 +46,7 @@ function Login(props) {
           <input type='password' id='password' name='password' value={formData.password} onChange={handleChange} placeholder='비밀번호를 입력하세요' required/>
         </p>
         <p className='search'>
-          <Link to='#'>아이디 찾기</Link> |&nbsp;
-          <Link to='#'>비밀번호 찾기</Link> |&nbsp;
+          아이디 찾기 | 비밀번호 찾기 |&nbsp;
           <Link to='/signin'>회원가입</Link>
         </p>
         <p>

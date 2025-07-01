@@ -4,7 +4,7 @@ import Info from './Info';
 import axios from 'axios';
 import '../css/profile.css';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function UserInfo(props) {
     const { id:userId } = useParams();
@@ -69,9 +69,10 @@ function UserInfo(props) {
                     <img src={`${API_BASE}/uploads/${posts[0].img}`} alt="프로필 이미지" />
                     </div>
                     <div className='user_info'>
+                        {console.log(posts)}
                         <p className='user_n'>{posts[0].nickname}</p>
                         <p className='user_e'>{posts[0].email}</p>
-                        <p className='user_intro'>자기소개</p>
+                        <p className='user_introT'>자기소개</p>
                         <p className='user_introP'>{posts[0].introduce}</p>
                     </div>
                 </div>

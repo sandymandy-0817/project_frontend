@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import '../css/profile.css';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Profile(props) {
     const { id:userId } = useParams();
@@ -31,17 +31,12 @@ function Profile(props) {
         setBackground(backgroundImages[randomIndex]);
     },[]);
 
-    const handleEdit = (e) => {
-        e.preventDefault();
-        navigate(`/profileupdate/${props.userId}`);
-    }
-
     /* 좋아요 */
     const [likedPosts, setLikedPosts] = useState([]);
 
     useEffect(()=> {
         if (tabmenu === '좋아요' && props.userId){
-            axios.get(`/liked-posts/${props.userId}`)
+            axios.get(`${API_BASE}/liked-posts/${props.userId}`)
                 .then(res => setLikedPosts(res.data));
         }
     }, [tabmenu, props.userId]);
@@ -135,9 +130,8 @@ function Profile(props) {
                     <video src={background.video} alt={`배경 ${backgroundImages.id}`} autoPlay loop muted/>
                 )}
             </div>
-            <button onClick={handleEdit}>수정하기</button>
             <article className='showcase'>
-                <Info nickname={props.nickname} email={props.email} userImg={props.userImg} userId={props.userId} setUserImg={props.setUserImg} />
+                <Info nickname={props.nickname} email={props.email} userImg={props.userImg} userId={props.userId} setUserImg={props.setUserImg} introduce={props.introduce} />
                 <div className='works'>
                     <ul className='inner_showcase'>
                         {tabs.map((tab) => (

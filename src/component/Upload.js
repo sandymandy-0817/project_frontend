@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/form.css';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Upload(props) {
   const [formData, setFormData] = useState({title:'',category:'',explain:'',author_id:props.userId});

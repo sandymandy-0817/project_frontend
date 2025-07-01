@@ -3,7 +3,7 @@ import '../css/form.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function Signin(props) {
 
@@ -55,7 +55,7 @@ function Signin(props) {
     }
   };
   return (
-    <section className='form sign'>
+    <section className='form'>
       <h2 className='form_title'>회원가입</h2>
       <p className='explain'>디자인은 공유될 때 비로소 완성됩니다. 지금 가입하고 당신의 이야기를 들려주세요</p>
       <form className='signin' onSubmit={handleSubmit}>
