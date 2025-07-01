@@ -40,7 +40,7 @@ function User_Info(props) {
     return (
         <div className='user_profile'>
           <div className='user_pic'> 
-            <img src={`http://localhost:9070/uploads/${props.userImg}`}/>
+            <img src={`${API_BASE}/uploads/${props.userImg}`}/>
             <button onClick={handleEditClick} >
             🔧
             </button>
