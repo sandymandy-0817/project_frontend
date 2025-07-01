@@ -109,7 +109,7 @@ return () => window.removeEventListener('scroll', toggleVisibility);
 }, []);
 
   useEffect(() => {
-    axios.get(``${API_BASE}/detail/${p_id}`)
+    axios.get(`${API_BASE}/detail/${p_id}`)
     .then(res=>{
       setData(res.data);
     })
