@@ -162,7 +162,7 @@ return (
                   {data.length > 0 ? (
                     <>
                     {console.log(data)}
-                      {props.userId==data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={``${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
+                      {props.userId==data[0].author_id?(<Link to="/profile"><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>):(<Link to={`/UserInfo/${data[0].author_id}`}><img src={`${API_BASE}/uploads/${data[0].img}`} alt="프로필사진" /></Link>)}
                       <p className='detail_nav_txtclr'><Link to="/profile">프로필</Link></p>
                     </>
                     ) : (
@@ -194,7 +194,7 @@ return (
             <div className="detail_titlebox">
                 {data.length > 0 ? (
                   <>
-                <img src={``${API_BASE}/uploads/${data[0].img}`} alt="상세보기 글 프로필 사진" />
+                <img src={`${API_BASE}/uploads/${data[0].img}`} alt="상세보기 글 프로필 사진" />
                 <div className="titlebox_txt">
                     <h2>{data[0].title}</h2>
                     <p>{data[0].explain.split('\n').map((line, index) => (
