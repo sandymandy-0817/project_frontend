@@ -4,6 +4,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
 function Header(props) {
   const { setSelectedCategory, nickname, userImg, search, setSearch } = props;
   const [menu, setMenu] = useState(false);
@@ -72,20 +74,22 @@ function Header(props) {
   return (
     <header className={scrolled ? 'scrolled' : ''}>
       <div className='h_wrap'>
-        <div className={`toggle ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
-          <span className='t1'></span>
-          <span className='t2'></span>
-          <span className='t3'></span>
+        <div className='ml_wrap'>
+          <div className={`toggle ${isOpen ? 'open' : ''}`} onClick={handleToggle}>
+            <span className='t1'></span>
+            <span className='t2'></span>
+            <span className='t3'></span>
+          </div>
+          <h1><Link to='/'>
+            <img
+              src={isMobile ?`${process.env.PUBLIC_URL}/images/logo_m.png`:`${process.env.PUBLIC_URL}/images/logo.png`}
+              alt="Logo"
+            />
+          </Link></h1>
         </div>
-        <h1><Link to='/'>
-          <img
-            src={isMobile ?`${process.env.PUBLIC_URL}/images/logo_m.png`:`${process.env.PUBLIC_URL}/images/logo.png`}
-            alt="Logo"
-          />
-        </Link></h1>
         <div className='h_search'>
           <input type="text" name='search' id='search' placeholder='검색을 통해 디공에서 아이디어를 나눠요!' style={{fontWeight:'lighter'}} value={search} onChange={(e) => setSearch(e.target.value)} />
-          <button><FontAwesomeIcon icon={faMagnifyingGlass} className='s_icon'/></button>
+          <button><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
         </div>
         {!nickname ? (
           <ul className='main_header'>
@@ -110,14 +114,14 @@ function Header(props) {
         <ul className='mobile'>
           <li>
             <div className='m_search'>
-              <input type="text" name='search' id='search' value={search} onChange={(e) => setSearch(e.target.value)}/>
+              <input type="text" name='search' id='search' className={showMobileSearch ? 'active':''} style={{maxHeight: showMobileSearch ? '40px' : '0', opacity: showMobileSearch ? 1 : 0, transition: 'max-height 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s', overflow: 'hidden', display: 'block'}} value={search} onChange={(e) => setSearch(e.target.value)} />
               <FontAwesomeIcon icon={faMagnifyingGlass}  className='s_icon' onClick={() => setShowMobileSearch(!showMobileSearch)}/>
             </div>
           </li>
           {!nickname ? (
           <li><Link to='/login'><FontAwesomeIcon icon={faUser} /></Link></li>
           ) : (
-          <li onClick={handleProfile} ref={m_profileRef}><img src={`http://localhost:9070/uploads/${userImg}`} alt="Profile" />
+          <li onClick={handleProfile} ref={m_profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="User Profile" />
             {profile && (<div className="h_profile">
                 <ul>
                   <li><Link to='profile'>내 프로필</Link></li>
