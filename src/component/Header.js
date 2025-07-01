@@ -94,7 +94,7 @@ function Header(props) {
           </ul>
         ) : (
           <ul className='main_header'>
-            <li onClick={handleProfile} ref={profileRef}><img src={`http://localhost:9070/uploads/${userImg}`} alt="Profile" />{nickname}
+            <li onClick={handleProfile} ref={profileRef}><img src={`${API_BASE}/uploads/${userImg}`} alt="Profile" />{nickname}
             {profile && (<div className="h_profile">
                 <ul>
                   <li><Link to='profile'>내 프로필</Link></li>
