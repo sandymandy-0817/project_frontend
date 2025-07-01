@@ -31,7 +31,7 @@ function Edit() {
             setPreviews([
             {
                 name: res.data.file_name,
-                url: `http://localhost:9070/uploads/${res.data.file_name}`,
+                url: `${API_BASE}/uploads/${res.data.file_name}`,
             },
             ]);
         }
@@ -77,7 +77,7 @@ function Edit() {
             });
         }
 
-        axios.post(`http://localhost:9070/update-post/${id}`, formData, {
+        axios.post(`${API_BASE}/update-post/${id}`, formData, {
             headers: {
             'Content-Type': 'multipart/form-data'
             }
