@@ -7,19 +7,22 @@ import Main from './component/Main';
 import Login from './component/Login';
 import Signin from './component/Signin';
 import Profile from './component/Profile';
+import ProfileUpdate from './component/ProfileUpdate';
 import UserInfo from './component/UserInfo';
 import Upload from './component/Upload';
 import Detail from './component/Detail';
 import Edit from './component/Edit';
 import Footer from './component/Footer';
 
-const API_BASE = process.env.React_APP_API_BASE_URL;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 function App() {
+
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [userId, setUserId] = useState('');
   const [userImg, setUserImg] = useState('');
+  const [introduce, setIntroduce] = useState('');
 
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
@@ -36,11 +39,13 @@ function App() {
         setEmail(decoded.email);
         setUserId(decoded.id);
         setUserImg(decoded.img);
+        setIntroduce(decoded.introduce);
       } catch (e) {
         setNickname('');
         setEmail('');
         setUserId('');
         setUserImg('');
+        setIntroduce('');
       }
     }
   }, []);
@@ -54,8 +59,9 @@ function App() {
         <Route path="/" element={<Main userId={userId} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} search={search} setSearch={setSearch} />} />
         <Route path="/login" element={<Login setNickname={setNickname} setEmail={setEmail} setUserId={setUserId} setUserImg={setUserImg} />} />
         <Route path="/signin" element={<Signin />} />
-        <Route path="/profile" element={<Profile nickname={nickname} email={email} userId={userId} userImg={userImg} setUserImg={setUserImg} />} />
+        <Route path="/profile" element={<Profile nickname={nickname} email={email} userId={userId} userImg={userImg} introduce={introduce} />} />
         <Route path="/UserInfo/:id" element={<UserInfo />} />
+        <Route path="/profileupdate/:id" element={<ProfileUpdate />} />
         <Route path="/upload" element={<Upload nickname={nickname} email={email} userId={userId} userImg={userImg} />} />
         <Route path="/edit/:id" element={<Edit />} />
       </Routes>
